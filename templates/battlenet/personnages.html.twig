@@ -1,0 +1,194 @@
+{% extends 'baseConnecte.html.twig' %}
+ {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/personnages.css') }}">
+    {% endblock %}
+{% block body %}
+    
+
+    <div class="container_all_onglets">
+    
+        <div class="container-onglets">
+        
+            {% for personnage in personnages %}
+                {% if personnage.numeroCompte == 1 %}
+                    <div class="onglets active" data-anime="{{personnage.numeroCompte}}">Compte {{personnage.numeroCompte}} ({{personnage.personnages|length}})</div>
+                {% elseif personnage.numeroCompte != 1 %}
+                    <div class="onglets" data-anime="{{personnage.numeroCompte}}">Compte {{personnage.numeroCompte}} ({{personnage.personnages|length}})</div>
+                {% endif %}
+            {% endfor %} 
+ 
+            {% if personnageInvalide|length > 1 %}
+            <div class="onglets" data-anime="{{dataAnimeAutre}}">Autre ({{personnageInvalide|length}})</div>
+            {% endif %}
+        </div>
+   
+
+        {% for personnage in personnages %}
+            {% if personnage.personnages != null %}
+                {% if personnage.numeroCompte == 1 %}
+                    <div class="container_personnages activeContenu" data-anime="{{personnage.numeroCompte}}"> 
+                {% else %}
+                    <div class="container_personnages" data-anime="{{personnage.numeroCompte}}"> 
+                {% endif %}
+
+                    {% for infoPersonnage in personnage.personnages %}
+
+                        <div class="container" >
+                            <input type="hidden" value="{{infoPersonnage.classe}}">
+                            <div class="titre">
+                                <img class="logo-faction" src="{{ asset('images/' ~ infoPersonnage.faction ~ '.png')}}" alt="">
+                                <h2 class="titre_couleur">{{infoPersonnage.name}} - {{infoPersonnage.reaml}} </h2>
+                                <h3>Lvl : {{infoPersonnage.level}}</h3>
+                            </div>
+                                                    
+                            <div class="container_personnage">
+                                
+                                <div class="infoPersonnage">
+                                
+                                
+                                </div>
+                        
+                                <div class="imagePersonnage">
+                                    <img src="{{infoPersonnage.grandePNG}}" alt="">
+                                </div>
+                            </div>
+                            
+                        </div>  
+                       
+                    {% endfor %}
+                   </div>
+           
+
+         
+               
+
+            {% elseif personnage.personnages == null %}
+              {% if personnage.numeroCompte == 1 %}
+                    <div class="container_personnages personnagesNotFound activeContenu" data-anime="{{personnage.numeroCompte}}">
+                    
+                {% else %}
+                    <div class=" container_personnages personnagesNotFound" data-anime="{{personnage.numeroCompte}}"> 
+                  
+                {% endif %}
+                        <h2>Pas de personnages trouvé...</h2> 
+                        <p>Reconnectez-vous sur le personnage ou montez-le de niveau</p>
+                        <img class="notFound"src="{{asset('images/panda.png')}}" alt="">
+                   </div>
+            {% endif %}
+        {% endfor %}
+
+
+
+               {% if personnageInvalide |length > 1 %}
+                    {% if dataAnimeAutre == 1 %} 
+                    <div class="container_personnages activeContenu" data-anime="{{dataAnimeAutre}}">
+                    
+                    {% else %} 
+                        <div class=" container_personnages" data-anime="{{dataAnimeAutre}}"> 
+                       
+                     
+                    
+                    {% endif %}
+
+
+
+
+                      
+             
+                 {% for infoPersonnage in personnageInvalide %}
+                        
+                        <div class="container" >
+                            <input type="hidden" value="{{infoPersonnage.classe}}">
+                            <div class="titre">
+                                <h2 class="titre_couleur">{{infoPersonnage.name}} - {{infoPersonnage.reaml}} </h2>
+                                <h3>Lvl : {{infoPersonnage.level}}</h3>
+                            </div>
+                                                    
+                            <div class="container_personnage">
+                                
+                                <div class="infoPersonnage">
+                                
+                                
+                                </div>
+                        
+                                <div class="imagePersonnage">
+                                    <img src="{{infoPersonnage.grandePNG}}" alt="">
+                                </div>
+                            </div>
+                            
+                        </div>
+                {% endfor %}
+                </div> 
+                {% endif %}
+   
+      </div>    
+        
+
+
+      
+
+        <script>
+        {# Mets des couleurs sur les noms des personnages #}
+        let container = document.querySelectorAll('.container');
+        let titre = document.querySelectorAll('.titre_couleur');
+        let couleurs = {
+            "Chevalier de la mort":"#C41F3B",
+            "Chasseur de démons":"#A330C9",
+            "Druide":"#FF7D0A",
+            "Chasseur":"#A9D271",
+            "Mage":"#40C7EB",
+            "Moine":"#00FF96",
+            "Paladin":"#F58CBA",
+            "Prêtre":"#FFFFFF",
+            "Voleur":"#FFF569",
+            "Chaman":"#0070DE",
+            "Démoniste":"#8787ED",
+            "Guerrier":"#C79C6E",
+        }
+
+        for(let i = 0; i<titre.length;i++){
+            let classe =  container[i].children[0].value;
+            for (const [key, value] of Object.entries(couleurs)) {
+                if(key==classe){
+                titre[i].style.color=value
+                }
+            
+            
+            }
+        }
+
+        {# Changes les onglets actifs #}
+        let onglets = document.querySelectorAll(".onglets");
+        let contenu = document.querySelectorAll(".container_personnages");
+        console.log(contenu)
+        let index = 0;
+
+        onglets.forEach(onglet => {
+            onglet.addEventListener('click',()=>{
+                if(onglet.classList.contains('active')){
+                    return;
+                }else{
+                    onglet.classList.add('active');
+                }
+
+                index = onglet.getAttribute('data-anime')
+
+                 for(i = 0; i< onglets.length; i++){
+                    if(onglets[i].getAttribute('data-anime') != index){
+                        onglets[i].classList.remove('active');
+                    }
+                }
+
+                   for(j = 0; j< contenu.length; j++){
+                    if(contenu[j].getAttribute('data-anime') == index){
+                        contenu[j].classList.add('activeContenu');
+                    }else{
+                        contenu[j].classList.remove('activeContenu');
+                    }
+                }
+             
+            })
+        })
+        
+        </script>
+{% endblock %}

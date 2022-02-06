@@ -15,6 +15,11 @@
         {% endblock %}
     </head>
     <body>
+        <header>
+           <a href="{{path('personnages')}}">Personnages</a>
+            <a href="{{path('montures')}}">Montures</a>
+             <a href="{{path('deconnexion')}}">deconnexion</a>
+        </header>
         {% block body %}{% endblock %}
     </body>
 </html>

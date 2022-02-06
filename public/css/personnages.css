@@ -1,0 +1,146 @@
+
+.container_all_onglets{
+    position: absolute;
+    width: 90%;
+    margin: 0 auto;
+    left: 50%;
+    top: 20vh;
+    transform: translate(-50%, -50%);
+}
+
+.container-onglets{
+    width: 100%;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    justify-content: center;
+    display: flex;
+}
+
+.onglets{
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+
+.container_personnages{
+    position:absolute;
+    display: flex;
+    z-index: 1;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 0 auto;
+    column-gap: 20px;
+    row-gap: 20px;
+    justify-content: center;
+    opacity: 0;
+}
+
+.active{
+    transition: 0.3s ease;
+}
+
+.active::after{
+    content: "";
+    width: 90px;
+    height: 3px;
+    position: absolute;
+    bottom: 26px;
+    background-color: rgb(41, 189, 248);
+}
+
+.activeContenu {
+    animation: affichePersonnage 0.5s forwards;
+}
+
+@keyframes affichePersonnage {
+    from{
+        opacity: 0;
+       
+        z-index: 1;
+    }
+    to{
+        opacity: 1;
+        z-index: 9999;
+      
+    }
+}
+
+
+.container_personnage{
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+   
+
+}
+
+.imagePersonnage img{
+    position: absolute;
+    clip: rect(0, auto, auto, 0px);
+    top: -129px;
+    right: -205px;
+    width: 808px;
+   transition: 1.3s ;
+}
+
+.imagePersonnage img:hover{
+    transform: scale(1.1);
+    filter : brightness(140%)
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    color: rgb(209, 209, 209);
+    box-shadow: 5px 4px 10px 0px rgba(119, 119, 119, 0.63);
+    background: rgb(13,13,13);
+    background: linear-gradient(180deg, rgba(13,13,13,1) 0%, rgba(38,38,38,1) 35%, rgba(82,81,81,1) 100%);
+   
+
+   
+}
+
+.imagePersonnage{
+    position: relative;
+    width: 423px;
+    height: 411px;
+    overflow: hidden;
+}
+
+.infoPersonnage{
+    width: 200px;
+}
+
+.titre{
+    justify-content: space-between;
+    padding: 1em;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+
+
+.logo-faction{
+    width: 40px;
+}
+
+.notFound{
+    width: 150px;
+}
+
+.personnagesNotFound{
+    display: block;
+    text-align: center;
+    padding-top: 4em;
+}
+
+.personnage h2, p{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}

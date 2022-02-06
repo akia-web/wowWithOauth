@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MountController!{% endblock %}
+ {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/montures.css') }}">
+{% endblock %}
+{% block body %}
+<a href="{{path('personnages')}}">personnages</a><a href="{{path('deconnexion')}}">deconnexion</a>
+<p>La monture à été ajouté</p>
+
+{% endblock %}

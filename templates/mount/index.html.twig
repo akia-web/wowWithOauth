@@ -1,0 +1,29 @@
+{% extends 'baseConnecte.html.twig' %}
+
+{% block title %}Hello MountController!{% endblock %}
+ {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/montures.css') }}">
+{% endblock %}
+{% block body %}
+
+
+<p>{{nbAccountMount}} / {{nbAllMount}}</p>
+<div class="container">
+
+{% for monture in allMontures %}
+    {% if monture.got == true %}
+    <img class="got" src="{{monture.image}}" alt="">
+    {% elseif monture.got == false %}
+    <img class="notGot" src="{{monture.image}}" alt="">
+    {% endif %}
+{% endfor %}
+</div>
+
+
+
+
+ {# <a href="{{path('add', {'id': 1436} )}}">ajouter</a> #}
+
+
+
+{% endblock %}
